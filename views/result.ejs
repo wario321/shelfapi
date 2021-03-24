@@ -1,0 +1,7 @@
+<h1>Result page</h1>
+
+<ul>
+<% for(var i = 0;i < result["Search"].length;i++){ %>
+    <li><%= result["Search"][i]["Title"] %> - <%= result["Search"][i]["Year"] %></li>
+<% } %>
+</ul>

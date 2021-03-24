@@ -1,0 +1,17 @@
+<h1>Data page</h1>
+
+<h2>Catalogs  </h2>
+<body>
+    <p><%= dataval["code1"]["name"] %> : <%= dataval["code1"]["totals"] %></p>
+    <p>Price : <%= dataval["code1"]["info"].price %></p>
+
+    <h2>test data</h2>
+    <%  const test2 = dataval; %>
+    <%  const test = Object.keys(test2); %>
+    <%  for(var i = 0;i < test.length;i++){ %>
+            <p><%= test2[test[i]].name %> : <%= test2[test[i]].totals %></p>
+    <% } %>
+</body>
+
+    
+
