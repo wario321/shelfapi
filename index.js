@@ -285,22 +285,10 @@ app.get("/stock",(req,res) => {
   })
 })
 
-/*app.post("/test",(req ,res)=> {
-  catalogs.once('value',(mem) => {
-    mem.forEach(data => {
-      var touse = data.val()
-      req.body.data.map(data2 => {
-        if(data2.title == touse.title){
-          catalogs.child(data.key).update({
-            "shelf": req.body.target
-          })
-        }
-      })
-      //console.log(data.key)
-    })
-  })
-  res.send("test")
-})*/
+
+app.get("testfordeploy",(req,res) => {
+  res.send("ok it work")
+})
 
 exports.app = functions.https.onRequest(app);
   
