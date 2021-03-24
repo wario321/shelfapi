@@ -290,5 +290,9 @@ app.get("testfordeploy",(req,res) => {
   res.send("ok it work")
 })
 
-exports.app = functions.https.onRequest(app);
+//exports.app = functions.https.onRequest(app);
+
+const Port = process.env.PORT || 3000;
+
+app.listen(Port)
   
