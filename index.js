@@ -127,6 +127,16 @@ app.get("/delete/:shelf/:id",(req,res) => {
       }
     })
   })
+  catalogs.once('value',mem4 => {
+    mem4.forEach(mem5 => {
+      var data = mem5.val()
+      if(data.id == req.params.id){
+        catalogs.child(mem5.key).update({
+          "shelf": ''
+        })
+      }
+    })
+}) 
   res.send("delete complete");
 })
 
@@ -152,6 +162,19 @@ app.post("/add/:shelf",(req,res) => {
     })
     item.push().set(mem);
   })
+  catalogs.once('value',mem4 => {
+      mem4.forEach(mem5 => {
+        var data = mem5.val()
+        req.body.map(mem6 => {
+          if(mem6.title == data.title){
+            catalogs.child(mem5.key).update({
+              "shelf": req.params.shelf
+            })
+          }
+        })
+      })
+  }) 
+  console.log(req.body)
   res.send('ok it send to me')
 })
 
@@ -179,6 +202,16 @@ app.post("/upload/:shelf",(req,res) => {
 app.post("/delete/:shelf", (req,res) => {
   admin.auth().getUser(req.body.uid).then((success) => {
     const shelf = db.child(req.params.shelf).remove().then((success) => {
+        catalogs.once('value',mem => {
+          mem.forEach(data => {
+            var foruse = data.val()
+            if(foruse.shelf == req.params.shelf){
+              catalogs.child(data.key).update({
+                "shelf": ''
+              })
+            }
+          })
+        })
         res.status(200).json({"message": "remove success"}) 
     })
     .catch(err => {
@@ -290,9 +323,15 @@ app.get("testfordeploy",(req,res) => {
   res.send("ok it work")
 })
 
-//exports.app = functions.https.onRequest(app);
+app.post("/adddata",(req,res) => {
+  console.log(req.body)
+  enable.push().update(req.body)
+  res.send('test')
+})
 
-const Port = process.env.PORT || 5000;
+exports.app = functions.https.onRequest(app);
 
-app.listen(Port)
+/*const Port = process.env.PORT || 5000;
+
+app.listen(Port)*/
   
