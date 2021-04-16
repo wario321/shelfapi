@@ -90,7 +90,7 @@ app.post("/edit/:shelf/:id", async (req,res) => {
   const format_data = {
     "title": req.body.title,
     "price": req.body.price,
-    "promotion": req.body.promotion,
+    "promotion": (req.body.promotion != '') ? req.body.promotion : 'false',
     "weight": req.body.weight,
     "last_update": date
   }
@@ -290,9 +290,9 @@ app.get("testfordeploy",(req,res) => {
   res.send("ok it work")
 })
 
-//exports.app = functions.https.onRequest(app);
+exports.app = functions.https.onRequest(app);
 
-const Port = process.env.PORT || 5000;
+/*const Port = process.env.PORT || 5000;
 
-app.listen(Port)
+app.listen(Port)*/
   
