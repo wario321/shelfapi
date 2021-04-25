@@ -41,19 +41,11 @@ const db = firebase.database().ref().child('Shelf');
 const enable = firebase.database().ref().child('Enable');
 const catalogs = firebase.database().ref().child('Catalogs');
 
-app.options('/upload/:shelf',(req,res) => {
+app.options('*',(req,res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
   res.setHeader('Access-Control-Allow-Credentials', true); 
-  res.end()
-})
-
-app.options('/add_shelf',(req,res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  //res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
-  //res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-  //res.setHeader('Access-Control-Allow-Credentials', true); 
   res.end()
 })
 
