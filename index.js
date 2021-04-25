@@ -181,6 +181,10 @@ app.post("/add/:shelf",(req,res) => {
 })
 
 app.post("/upload/:shelf",(req,res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  res.setHeader('Access-Control-Allow-Credentials', true); 
   const shelf = db.child(req.params.shelf)
   const shelf_edit = shelf.child('img')
   //console.log(req.body.shelf_edit.name)
@@ -227,6 +231,10 @@ app.post("/delete/:shelf", (req,res) => {
 
 app.post("/add_shelf",(req,res) => {
   //console.log(req.body)
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  res.setHeader('Access-Control-Allow-Credentials', true); 
   const date = new Date().toISOString().slice(0,10)
   admin.auth().getUser(req.body.uid).then((success) => {
     const shelf_name = req.body.shelf_name
