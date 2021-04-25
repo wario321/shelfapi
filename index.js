@@ -22,6 +22,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json())
 app.set('view engine','ejs');
 app.use(cors());
+app.options('*',cors())
 
 
 var firebaseConfig = {
@@ -325,7 +326,7 @@ app.get("testfordeploy",(req,res) => {
 
 app.post("/adddata",(req,res) => {
   console.log(req.body)
-  enable.push().update(req.body)
+  catalogs.push().update(req.body)
   res.send('test')
 })
 
