@@ -23,6 +23,11 @@ app.use(bodyParser.json())
 app.set('view engine','ejs');
 app.use(cors());
 app.options('*',cors())
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 
 var firebaseConfig = {
@@ -258,7 +263,7 @@ app.post("/add_shelf",(req,res) => {
   
 })
 
-app.get("/testapi",(req,res) => {
+app.get("/shelf_info",(req,res) => {
   //var data_send = []
   db.once('value').then((data) => {
     var data_send = []
