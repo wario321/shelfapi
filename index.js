@@ -337,6 +337,11 @@ app.post("/adddata",(req,res) => {
   res.send('test')
 })
 
+app.post('/addenable',(req,res) => {
+  console.log(req.body)
+  enable.push().update(req.body)
+  res.send('test')
+})
 //exports.app = functions.https.onRequest(app);
 
 const Port = process.env.PORT || 5000;
