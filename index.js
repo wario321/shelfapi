@@ -17,11 +17,18 @@ const { ResultStorage } = require('firebase-functions/lib/providers/testLab');
 
 
 //const upload = multer({storage : storage})
-
+app.use(cors());
+app.options('*',(req,res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  res.setHeader('Access-Control-Allow-Credentials', true); 
+  res.end()
+})
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json())
 app.set('view engine','ejs');
-app.use(cors());
+
 
 
 
@@ -41,13 +48,6 @@ const db = firebase.database().ref().child('Shelf');
 const enable = firebase.database().ref().child('Enable');
 const catalogs = firebase.database().ref().child('Catalogs');
 
-app.options('*',(req,res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-  res.setHeader('Access-Control-Allow-Credentials', true); 
-  res.end()
-})
 
 app.get("/api",(req,res)=> {
   const csvFilePath='../csv/Data.csv'
@@ -336,9 +336,9 @@ app.post("/adddata",(req,res) => {
   res.send('test')
 })
 
-//exports.app = functions.https.onRequest(app);
+exports.app = functions.https.onRequest(app);
 
-const Port = process.env.PORT || 5000;
+/*const Port = process.env.PORT || 5000;
 
-app.listen(Port)
+app.listen(Port)*/
   
