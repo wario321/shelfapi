@@ -47,7 +47,7 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.database().ref().child('Shelf');
 const enable = firebase.database().ref().child('Enable');
 const catalogs = firebase.database().ref().child('Catalogs');
-
+var user = ['xsTiCSYvwde8AYT0aq2DMNtT70l1','3hcOjpCWIWTFep9YoJe37LEVWIh1','YakeLHWDkIQ9uOg2M3sBQUTiyOf2']
 
 app.get("/api",(req,res)=> {
   const csvFilePath='../csv/Data.csv'
@@ -207,7 +207,7 @@ app.post("/upload/:shelf",(req,res) => {
 })
 
 app.post("/delete/:shelf", (req,res) => {
-  if(req.body.uid == "xsTiCSYvwde8AYT0aq2DMNtT70l1"){
+  if(user.includes(req.body.uid)){
     const shelf = db.child(req.params.shelf).remove().then((success) => {
         catalogs.once('value',mem => {
           mem.forEach(data => {
@@ -234,7 +234,7 @@ app.post("/delete/:shelf", (req,res) => {
 app.post("/add_shelf",(req,res) => {
   //console.log(req.body)
   const date = new Date().toISOString().slice(0,10)
-  if(req.body.uid == "xsTiCSYvwde8AYT0aq2DMNtT70l1"){
+  if(user.includes(req.body.uid)){
     const shelf_name = req.body.shelf_name
     const example = {
             "barcode_code": 123456789,
