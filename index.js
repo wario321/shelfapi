@@ -259,7 +259,7 @@ app.post("/add_shelf",(req,res) => {
     res.status(200).send("add successful")
   })
   .catch(err => {
-    res.status(203).send("not permission")
+    res.status(203).send(err)
   })
   
 })
