@@ -207,7 +207,7 @@ app.post("/upload/:shelf",(req,res) => {
 })
 
 app.post("/delete/:shelf", (req,res) => {
-  admin.auth().getUser(req.body.uid).then((success) => {
+  if(req.body.uid == "xsTiCSYvwde8AYT0aq2DMNtT70l1"){
     const shelf = db.child(req.params.shelf).remove().then((success) => {
         catalogs.once('value',mem => {
           mem.forEach(data => {
@@ -224,16 +224,17 @@ app.post("/delete/:shelf", (req,res) => {
     .catch(err => {
       res.status(204).sendjson({"message": "shelf not found"})
     })
+  }
+  else{
+    res.status(203).json({"message ": "no permission"})
+  }  
   })
-  .catch((err) => {
-    res.json({"message": 'no permission'})
-  })
-})
+
 
 app.post("/add_shelf",(req,res) => {
   //console.log(req.body)
   const date = new Date().toISOString().slice(0,10)
-  admin.auth().getUser(req.body.uid).then((success) => {
+  if(req.body.uid == "xsTiCSYvwde8AYT0aq2DMNtT70l1"){
     const shelf_name = req.body.shelf_name
     const example = {
             "barcode_code": 123456789,
@@ -257,10 +258,10 @@ app.post("/add_shelf",(req,res) => {
     db.update(format_data)
     //console.log(req.body)
     res.status(200).send("add successful")
-  })
-  .catch(err => {
-    res.status(203).send(err)
-  })
+  }
+  else{
+    res.status(203).json({"message ": "no permission"})
+  } 
   
 })
 
