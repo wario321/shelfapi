@@ -99,7 +99,8 @@ app.post("/edit/:shelf/:id", async (req,res) => {
     "price": req.body.price,
     "promotion": (req.body.promotion != '') ? req.body.promotion : 'false',
     "weight": req.body.weight,
-    "last_update": date
+    "last_update": date,
+    "type": req.body.type
   }
   const shelf = db.child(req.params.shelf);
   const item = shelf.child('item');
@@ -342,9 +343,9 @@ app.post('/addenable',(req,res) => {
   enable.push().update(req.body)
   res.send('test')
 })
-//exports.app = functions.https.onRequest(app);
+exports.app = functions.https.onRequest(app);
 
-const Port = process.env.PORT || 5000;
+/*const Port = process.env.PORT || 5000;
 
-app.listen(Port)
+app.listen(Port)*/
   
