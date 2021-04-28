@@ -112,6 +112,16 @@ app.post("/edit/:shelf/:id", async (req,res) => {
       }
     })
   })
+  catalogs.once('value',mem4 => {
+    mem4.forEach(mem5 => {
+      var data = mem5.val()
+      if(data.id == req.params.id){
+        catalogs.child(mem5.key).update({
+          "title": format_data.title
+        })
+      }
+    })
+  })
   res.status(200).json({
     status: "ok"
   })
@@ -280,6 +290,7 @@ app.get("/shelf_info",(req,res) => {
 })
 
 app.post("/move_item/:shelf",(req,res) => {
+  console.log(req.body)
   const shelf = db.child(req.params.shelf).child('item')
   const target_shelf = db.child(req.body.target).child('item')
   shelf.once('value', (data) => {
@@ -298,9 +309,10 @@ app.post("/move_item/:shelf",(req,res) => {
     mem.forEach(data => {
       var touse = data.val()
       req.body.data.map(data2 => {
-        if(data2.title == touse.title){
+        if(data2.id == touse.id){
           catalogs.child(data.key).update({
-            "shelf": req.body.target
+            "shelf": req.body.target,
+            "title": data2.title
           })
         }
       })
